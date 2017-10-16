@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>多物体运动</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul,
+    li {
+        list-style: none;
+    }
+
+    ul li {
+        width: 200px;
+        height: 100px;
+        background: yellow;
+        margin-bottom: 20px;
+        opacity: 0.3;
+    }
+    </style>
+    <script>
+    window.onload = function() {
+        // 获取每个 li
+        var aLi = document.getElementsByTagName('li')
+
+        // 对每个li设置onmouseover, onmouseout
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].timer = null;
+            aLi[i].onmouseover = function() {
+                startMove(this, 400)
+            }
+            aLi[i].onmouseout = function() {
+                startMove(this, 200)
+            }
+        }
+    }
+
+    // 定时器
+    // var timer = null;
+
+    // startMove()
+    // 进入清除定时器
+    // 速度是距离除以一个值
+    // 正值：取正；负值 floor
+    // 设置定时器，判断是否达到目标
+    function startMove(obj, iTarget) {
+        clearInterval(obj.timer);
+        var speed = (iTarget - obj.offsetWidth) / 8;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+
+        obj.timer = setInterval(function() {
+            if (obj.offsetWidth == iTarget) {
+                clearInterval(obj.timer)
+            } else {
+                obj.style.width = obj.offsetWidth + speed + 'px';
+            }
+        }, 30)
+    }
+    </script>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
